@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name', 64);
             $table->string('description');
             $table->bigInteger('surface');
+            $table->bigInteger('volume');
             $table->bigInteger('default_price');
         });
 

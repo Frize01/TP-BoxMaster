@@ -19,8 +19,8 @@ return new class extends Migration
             $table->bigInteger('tenant_id');
             $table->foreign('tenant_id')->references('id')->on('tenants');
             $table->float('price');
-            $table->timestamp('date_start');
-            $table->timestamp('date_end');
+            $table->datetime('date_start');
+            $table->datetime('date_end');
         });
 
         Schema::enableForeignKeyConstraints();

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 32);
             $table->string('tel', 13);
             $table->string('mail');
-            $table->string('adresse');
+            $table->string('address');
             $table->string('rib', 34);
         });
     }
