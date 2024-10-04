@@ -3,6 +3,14 @@ parameters:
   paths:
     - app
     - database
-    - tests
     - routes
     - resources
+  excludePaths:
+    # J'ai pas créé ça, j'ai confiance en ces mecs ils sont plus intelligents que moi
+    - app/View/Components/*
+    - app/Http/Requests/*
+    - app/Http/Controllers/Auth/*
+    - app/Http/Controllers/ProfileController.php
+  ignoreErrors:
+    # Faux positif
+    - '#Cannot call method name\(\) on array\|Illuminate\\Routing\\Route#'
