@@ -45,6 +45,11 @@ php artisan migrate
 php artisan db:seed
 npm run dev
 ```
+Sur un autre Terminal :
+
+```shell
+php artisan serve
+```
 
 ## Commande utiles
 
