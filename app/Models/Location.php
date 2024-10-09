@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Location
@@ -15,11 +16,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon $date_start
  * @property \Illuminate\Support\Carbon $date_end
  */
-class Location
+class Location extends Model
 {
     use HasFactory;
 
     protected $table = 'locations';
+
+    public $timestamps = false;
+
 
     /**
      * The attributes that are mass assignable.
@@ -52,5 +56,16 @@ class Location
             'date_start' => 'datetime',
             'date_end' => 'datetime',
         ];
+    }
+
+    public function box(): BelongsTo
+    {
+        return $this->belongsTo(Box::class, 'box_id', 'id');
+    }
+
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class, 'tenant_id', 'id');
     }
 }

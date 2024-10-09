@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Tenant
@@ -15,12 +17,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $address
  * @property string $rib
  */
-class Tenant
+class Tenant extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+
     protected $table = 'tenants';
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,6 +37,7 @@ class Tenant
         'mail',
         'address',
         'rib',
+        'linked_user'
     ];
 
     /**
@@ -48,6 +54,18 @@ class Tenant
      */
     protected function casts(): array
     {
-        return [];
+        return [
+            'tel' => 'integer',
+        ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
+
+    public function location(): HasMany
+    {
+        return $this->hasMany(Location::class, 'tenant_id');
     }
 }

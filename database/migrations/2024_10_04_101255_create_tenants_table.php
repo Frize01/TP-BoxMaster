@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tenants', function (Blueprint $table) {
+        Schema::create('tenants', function (Blueprint $table): void {
             $table->id();
             $table->string('name', 32);
             $table->string('tel', 13);
             $table->string('mail');
             $table->string('address');
             $table->string('rib', 34);
+            $table->bigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

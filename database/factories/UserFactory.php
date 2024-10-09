@@ -41,4 +41,13 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function toto(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => 'toto',
+            'email' => 'toto@toto.tot',
+            'password' => Hash::make('totototo'),
+        ]);
+    }
 }

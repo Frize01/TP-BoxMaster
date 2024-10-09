@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Box
@@ -17,11 +18,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int|null $volume
  * @property int $default_price
  */
-class Box
+class Box extends Model
 {
     use HasFactory;
 
     protected $table = 'boxs';
+
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -52,5 +55,10 @@ class Box
     protected function casts(): array
     {
         return [];
+    }
+
+    public function location(): HasMany
+    {
+        return $this->hasMany(Location::class, 'box_id');
     }
 }
