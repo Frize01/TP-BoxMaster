@@ -1,7 +1,7 @@
 ## Les fonctionnalités
 
-- [ ] Authentification
--  [ ] Gestion de box (chaque compte utilisateur (= proprio de box) peut gérer ses propres box)
+- [x] Authentification
+- [x] Gestion de box (chaque compte utilisateur (= proprio de box) peut gérer ses propres box)
 - [ ] Gestion de locataires (nom, tel,mail, adresse, compte banciare...)
 - [ ] Gestion de modèles de contrats
 - [ ] Gestion des contrats automatisée : l'utilisateur peut créer un modèle de contrat, en y incluant des variables (nom, prenom, adresse, etc...) qui seront par la suite automatiquement remplacées lors de la constitution d'un contrat.
@@ -16,6 +16,7 @@
 - [ ] Export Excel comptable des paiements reçu
 - [ ] Export des clients au format CSV
 - [ ] Envoi automatique par mail de la facture 🐥
+- [ ] Tests unitaires [TUTO](https://kinsta.com/fr/blog/tests-unitaires-laravel/)
 
 ## Les impératifs
 

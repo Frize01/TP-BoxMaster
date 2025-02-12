@@ -6,6 +6,7 @@ use App\Models\Box;
 use App\Models\Location;
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,8 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Toto',
-            'email' => 'toto@toto.toto'
+            'email' => 'user@test.local',
+            'password' => Hash::make('testtt'),
         ]);
 
         Tenant::factory()->count(1)->create();

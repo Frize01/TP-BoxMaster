@@ -55,6 +55,8 @@ class Location extends Model
         return [
             'date_start' => 'datetime',
             'date_end' => 'datetime',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 

@@ -21,11 +21,33 @@
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-row justify-between">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
+
+            @if (session('success'))
+                <x-alert title="Success" type="success">
+                    <p>{{ session('success') }}</p>
+                </x-alert>
+            @endif
+
+            @if (session('error'))
+                <x-alert title="Error" type="error">
+                    <p>{{ session('error') }}</p>
+                </x-alert>
+            @endif
+
+            @if ($errors->any())
+                <x-alert title="Error in the Form" type="error">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </x-alert>
+            @endif
 
             <!-- Page Content -->
             <main>
