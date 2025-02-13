@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Box;
+use App\Models\Contract;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,8 @@ class BoxController extends Controller
 
     public function show(Box $box)
     {
-        $locations = Location::where('box_id', $box->id)->with('tenant')->get();
-        return view('boxs.show', ['box' => $box, 'locations' => $locations]);
+        $contracts = Contract::where('box_id', $box->id)->with('tenant')->get();
+        return view('boxs.show', ['box' => $box, 'contracts' => $contracts]);
     }
 
     public function create()
@@ -48,6 +49,9 @@ class BoxController extends Controller
 
     public function destroy(Box $box)
     {
+        if(Contract::where('box_id', $box->id)->exists()) {
+            return redirect()->route('box.index')->with('error', 'Impossible de supprimer la box car elle est associée à un contrat');
+        }
         $box->delete();
         return redirect()->route('box.index')->with('success', 'Box supprimée avec succès');
     }
@@ -56,7 +60,7 @@ class BoxController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'surface' => 'required|integer|min:0',
             'volume' => 'nullable|integer|min:0',
             'default_price' => 'required|numeric|min:1',
@@ -68,7 +72,7 @@ class BoxController extends Controller
     private function saveData(Box $box, array $data): void
     {
         $box->name = $data['name'];
-        $box->description = $data['description'];
+        $box->address = $data['address'];
         $box->surface = $data['surface'];
         $box->volume = $data['volume'];
         $box->default_price = $data['default_price'];

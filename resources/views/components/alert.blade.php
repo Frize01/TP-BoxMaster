@@ -1,5 +1,6 @@
 @props(['title' => null, 'type' => null])
 
+{{-- TODO : Icones : Retirer les trads --}}
 
 <div class="@if($type == 'error') bg-red-600 text-white @else bg-white @endif rounded-lg border-gray-300 border p-3 shadow-lg fixed top-3 right-3 ml-2 max-w-96 sm:min-w-64 animate-fade-in z-50" id="deleted-card">
     <button type="button" id="buttonCloseCard" class="box-content rounded opacity-50 hover:opacity-100 absolute top-2 right-2">

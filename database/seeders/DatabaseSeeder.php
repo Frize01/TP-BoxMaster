@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Box;
-use App\Models\Location;
+use App\Models\Contract;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +24,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('testtt'),
         ]);
 
-        Tenant::factory()->count(1)->create();
-        Box::factory()->count(1)->create();
-        Location::factory()->count(1)->create();
+        User::factory()->count(10)->create();
+
+        Tenant::factory()->count(10)->create();
+        Box::factory()->count(10)->create();
+        Contract::factory()->count(1)->create();
     }
 }

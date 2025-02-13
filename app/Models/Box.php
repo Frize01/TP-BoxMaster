@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $owner_id
  * @property string $name
  * @property int $surface
- * @property string $description
+ * @property string $address
  * @property int|null $volume
  * @property int $default_price
  */
@@ -36,7 +37,7 @@ class Box extends Model
         'owner_id',
         'name',
         'surface',
-        'description',
+        'address',
         'volume',
         'default_price',
     ];
@@ -58,9 +59,19 @@ class Box extends Model
         return [];
     }
 
-    public function locations(): HasMany
+    public function isAvailable(): Attribute
     {
-        return $this->hasMany(Location::class, 'box_id');
+        if ($this->contract()->where('box_id', $this->id)->where('date_start', '<=', now())->where('date_end', '>', now())->count() == 0)
+        {
+            return Attribute::make(get: fn () => true);
+        }
+
+        return Attribute::make(get: fn () => false);
+    }
+
+    public function contract(): HasMany
+    {
+        return $this->hasMany(Contract::class, 'box_id');
     }
 
     public function owner(): BelongsTo

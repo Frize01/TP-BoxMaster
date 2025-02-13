@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('box_id');
-            $table->bigInteger('tenant_id');
-            $table->foreign('tenant_id')->references('id')->on('tenants');
+            $table->foreignId('box_id')->constrained('boxs');
+            $table->foreignId('tenant_id')->constrained('tenants');
             $table->float('price');
             $table->datetime('date_start');
             $table->datetime('date_end');
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('contracts');
     }
 };

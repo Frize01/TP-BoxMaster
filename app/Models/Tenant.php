@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  *
  * @property int $id
+ * @property string $name
  * @property int $tel
  * @property string $mail
  * @property string $address
  * @property string $rib
+ * @property User $owner_id
  */
 class Tenant extends Model
 {
@@ -55,17 +57,16 @@ class Tenant extends Model
     protected function casts(): array
     {
         return [
-            'tel' => 'integer',
         ];
     }
 
-    public function user(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function location(): HasMany
+    public function contract(): HasMany
     {
-        return $this->hasMany(Location::class, 'tenant_id');
+        return $this->hasMany(Contract::class, 'tenant_id');
     }
 }

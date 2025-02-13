@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('mail');
             $table->string('address');
             $table->string('rib', 34);
-            $table->bigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users');
         });
     }
 
