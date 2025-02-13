@@ -2,8 +2,8 @@
 
 - [x] Authentification
 - [x] Gestion de box (chaque compte utilisateur (= proprio de box) peut gérer ses propres box)
-- [ ] Gestion de locataires (nom, tel,mail, adresse, compte banciare...)
-- [ ] Gestion de modèles de contrats
+- [x] Gestion de locataires (nom, tel,mail, adresse, compte banciare...)
+- [ ] Gestion de modèles de contrats [P'tite lib pas piqué des hannetons](https://editorjs.io)
 - [ ] Gestion des contrats automatisée : l'utilisateur peut créer un modèle de contrat, en y incluant des variables (nom, prenom, adresse, etc...) qui seront par la suite automatiquement remplacées lors de la constitution d'un contrat.
 - [ ] Gestion des suivis de paiement au mois par mois (cases à cocher)
 - [ ] Gestion des impots : en fonction des structures de société, perso ou autre, implémenter les calculs des impots et recracher les montants que vous devrez renseigner dans les cases de votre déclaration d'impôts 😁
