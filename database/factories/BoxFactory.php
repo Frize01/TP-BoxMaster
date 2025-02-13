@@ -17,8 +17,8 @@ class BoxFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id' => 1,
-            'description' => fake()->sentence(),
+            'owner_id' => fake()->numberBetween(1, 2),
+            'address' => fake()->address(),
             'name' => fake()->word(),
             'surface' => fake()->numberBetween(1, 100),
             'volume' => fake()->numberBetween(1, 1000),

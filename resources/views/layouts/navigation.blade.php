@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('box.index')" :active="request()->routeIs('box.*')">
                         Gestion des boxs
                     </x-nav-link>
+                    <x-nav-link :href="route('tenant.index')" :active="request()->routeIs('tenant.*')">
+                        Gestion des locataires
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -75,6 +78,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('box.index')" :active="request()->routeIs('box.*')">
                 Gestion des boxs
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('tenant.index')" :active="request()->routeIs('tenant.*')">
+                Gestion des locataires
             </x-responsive-nav-link>
         </div>
 

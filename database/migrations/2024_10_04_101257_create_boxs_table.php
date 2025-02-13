@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users');
             $table->string('name', 64);
-            $table->string('description');
+            $table->string('address', 255);
             $table->bigInteger('surface');
             $table->bigInteger('volume');
             $table->bigInteger('default_price');

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('/box')->name('box.')->group(function () {
+    Route::prefix('/boxs')->name('box.')->group(function () {
         Route::get('/', [BoxController::class, 'index'])->name('index');
         Route::get('/create', [BoxController::class, 'create'])->name('create');
         Route::post('/store', [BoxController::class, 'store'])->name('store');
@@ -27,6 +28,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/edit', [BoxController::class, 'edit'])->name('edit');
             Route::put('/update', [BoxController::class, 'update'])->name('update');
             Route::delete('/delete', [BoxController::class, 'destroy'])->name('destroy');
+        });
+    });
+
+    Route::prefix('/tenants')->name('tenant.')->group(function () {
+        Route::get('/', [TenantController::class, 'index'])->name('index');
+        Route::get('/create', [TenantController::class, 'create'])->name('create');
+        Route::post('/store', [TenantController::class, 'store'])->name('store');
+
+        Route::prefix('/{tenant}')->middleware('ownerTenant')->group(function () {
+            Route::get('/show', [TenantController::class, 'show'])->name('show');
+            Route::get('/edit', [TenantController::class, 'edit'])->name('edit');
+            Route::put('/update', [TenantController::class, 'update'])->name('update');
+            Route::delete('/delete', [TenantController::class, 'destroy'])->name('destroy');
         });
     });
 });

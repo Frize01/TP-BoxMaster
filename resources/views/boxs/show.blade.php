@@ -3,9 +3,19 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Box - {{ $box->name }}
         </h2>
-        <a href="{{ route('box.edit', $box->id) }}" class="text-blue-500 px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded-md hover:text-blue-700">
-            Modifier
-        </a>
+        <div class="flex gap-4">
+            <a href="{{ route('box.edit', $box->id) }}" class="text-blue-500 px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded-md hover:text-blue-700">
+                Modifier
+            </a>
+            <form action="{{ route('box.destroy', $box->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-red-500 px-2 py-1 bg-red-100 hover:bg-red-200 rounded-md hover:text-red-700">
+                    Supprimer
+                </button>
+            </form>
+        </div>
+
     </x-slot>
 
     <div class="py-6 pt-12">
@@ -16,7 +26,7 @@
                         Informations
                     </h3>
                     <p>
-                        <span class="font-bold">Description :</span> {{ $box->description }}
+                        <span class="font-bold">Adresse :</span> {{ $box->address }}
                     </p>
                     <p>
                         <span class="font-bold">Surface :</span> {{ $box->surface }} m²
@@ -36,18 +46,23 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="text-lg font-medium leading-6 pb-4 text-gray-900">
-                        Locations
+                        Contracts
                     </h3>
-                    @if ($locations->isEmpty())
-                        <p>Aucune location pour le moment</p>
+                    @if ($contracts->isEmpty())
+                        <p>Aucun contract pour le moment</p>
                     @else
                     <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                     <table class="w-full text-left table-auto min-w-max">
                         <thead>
-                            <tr>
+                            <tr class="hover:bg-slate-50">
                                 <th class="p-4 border-b border-slate-300 bg-slate-50">
                                     <p class="block text-sm font-normal leading-none text-slate-500">
                                         Nom
+                                    </p>
+                                </th>
+                                <th class="p-4 border-b border-slate-300 bg-slate-50">
+                                    <p class="block text-sm font-normal leading-none text-slate-500">
+                                        État
                                     </p>
                                 </th>
                                 <th class="p-4 border-b border-slate-300 bg-slate-50">
@@ -65,38 +80,56 @@
                                         Date de fin
                                     </p>
                                 </th>
+                                <th class="p-4 border-b border-slate-300 bg-slate-50">
+                                    <p class="block text-sm font-normal leading-none text-slate-500">
+                                        Afficher
+                                    </p>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($locations as $location)
-                            <tr class="hover:bg-slate-50
-                                @if ($location->date_end > now() && $location->date_start < now())
-                                    bg-blue-50
-                                @elseif ($location->date_end < now())
-                                    bg-red-50
-                                @endif
-                            ">
+                            @foreach ($contracts as $contract)
+                            <tr class="hover:bg-slate-50">
                                 <td class="p-4 border-b border-slate-200">
                                     <p class="block text-sm text-slate-800">
-                                        {{ $location->tenant->name }}
+                                        {{ $contract->tenant->name }}
+                                    </p>
+                                </td>
+                                <td class="p-4 border-b border-slate-200">
+                                    @if ($contract->status == 'active')
+                                    <p class="inline-block text-green-500 px-2 py-1 bg-green-100 rounded-md">
+                                        Contrat actuel
+                                    </p>
+                                    @elseif ($contract->status == 'pending')
+                                    <p class="inline-block text-blue-500 px-2 py-1 bg-blue-100rounded-md">
+                                        Contrat futur
+                                    </p>
+                                    @else
+                                    <p class="inline-block text-red-500 px-2 py-1 bg-red-100 rounded-md">
+                                        Contrat terminé
+                                    </p>
+                                    @endif
+                                </td>
+                                <td class="p-4 border-b border-slate-200">
+                                    <p class="block text-sm text-slate-800">
+                                        {{ $contract->price }} €
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200">
                                     <p class="block text-sm text-slate-800">
-                                        {{ $location->price }} €
+                                        {{ $contract->date_start->format('d/m/Y') }}
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200">
                                     <p class="block text-sm text-slate-800">
-                                        {{ $location->date_start->format('d/m/Y') }}
+                                        {{ $contract->date_end->format('d/m/Y') }}
                                     </p>
                                 </td>
                                 <td class="p-4 border-b border-slate-200">
-                                    <p class="block text-sm text-slate-800">
-                                        {{ $location->date_end->format('d/m/Y') }}
-                                    </p>
+                                    <a href="{{ null }}" class="text-blue-500 px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded-md hover:text-blue-700">
+                                        Voir
+                                    </a>
                                 </td>
-
                             </tr>
                             @endforeach
                     @endif

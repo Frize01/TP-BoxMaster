@@ -23,7 +23,7 @@ class TenantFactory extends Factory
             'mail' => $this->faker->unique()->safeEmail(),
             'address' => $this->faker->address(),
             'rib' => Str::upper($this->faker->bothify('FR##########??????????????????')),  // Format pour le RIB
-            'user_id' =>  1,
+            'owner_id' =>  $this->faker->numberBetween(1, 2),
         ];
     }
 }

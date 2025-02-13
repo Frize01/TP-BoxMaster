@@ -34,10 +34,10 @@
                         </div>
 
                         <div>
-                            <x-input-label for="description" value="Description" />
-                            <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
-                                :value="old('description', $box->description)" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                            <x-input-label for="address" value="Adresse" />
+                            <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
+                                :value="old('address', $box->address)" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('address')" />
                         </div>
 
                         <div>
