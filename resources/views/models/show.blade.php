@@ -27,8 +27,6 @@
                             <tr class="bg-gray-200">
                                 <th class="px-4 py-2 text-left">Statut</th>
                                 <th class="px-4 py-2 text-left">Variable</th>
-                                <th class="px-4 py-2 text-left">Description</th>
-                                <th class="px-4 py-2 text-left">Copier</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,10 +34,6 @@
                                 <tr class="border-b" data-variable="{{ $variable }}">
                                     <td class="px-4 py-2 status"></td>
                                     <td class="px-4 py-2 font-medium">{{ $variable }}</td>
-                                    <td class="px-4 py-2">{{ $description }}</td>
-                                    <td class="px-4 py-2 text-center">
-                                        <button type="button" data-clipboard-text="{{ $variable }}">📋</button>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
