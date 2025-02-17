@@ -5,6 +5,11 @@
         </h2>
     </x-slot>
 
+    {{-- Définition des variables --}}
+    @php
+        $variables = App\Models\ModelContract::$availableVariable;
+    @endphp
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -35,12 +40,15 @@
                             <div class="mb-4">
                                 <p class="text-gray-500 text-xs mb-2">Vous pouvez insérer des variables dans le texte de
                                     ce modèle en
-                                    utilisant la syntaxe suivante : <code>%nomVariable%</code>. Remplacez
-                                    <code>nomVariable</code> par l'une des variables suivantes pour personnaliser le
+                                    utilisant la syntaxe suivante : <code>%nomvariable%</code>. Remplacez
+                                    <code>nomvariable</code> par l'une des variables suivantes pour personnaliser le
                                     contrat :
                                 </p>
 
-                                <div class="overflow-x-auto mb-4 text-sm">
+                                <button type="button" id="toggleTable" class="text-blue-500 mb-2">Afficher/Masquer les
+                                    variables</button>
+
+                                <div id="variablesTable" class="overflow-x-auto mb-4 text-sm">
                                     <table id="variables-table"
                                         class="table-auto border-collapse border rounded-md border-gray-300">
                                         <thead>
@@ -52,48 +60,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="border-b" data-variable="%date_start%">
-                                                <td class="px-4 py-2 status"></td>
-                                                <td class="px-4 py-2 font-medium">%date_start%</td>
-                                                <td class="px-4 py-2">Date de début du contrat</td>
-                                                <td class="px-4 py-2 text-center">
-                                                    <button type="button"
-                                                        data-clipboard-text="%date_start%">📋</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b" data-variable="%date_end%">
-                                                <td class="px-4 py-2 status"></td>
-                                                <td class="px-4 py-2 font-medium">%date_end%</td>
-                                                <td class="px-4 py-2">Date de fin du contrat</td>
-                                                <td class="px-4 py-2 text-center">
-                                                    <button type="button" data-clipboard-text="%date_end%">📋</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b" data-variable="%monthly_price%">
-                                                <td class="px-4 py-2 status"></td>
-                                                <td class="px-4 py-2 font-medium">%monthly_price%</td>
-                                                <td class="px-4 py-2">Montant mensuel du loyer</td>
-                                                <td class="px-4 py-2 text-center">
-                                                    <button type="button"
-                                                        data-clipboard-text="%monthly_price%">📋</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b" data-variable="%box%">
-                                                <td class="px-4 py-2 status"></td>
-                                                <td class="px-4 py-2 font-medium">%box%</td>
-                                                <td class="px-4 py-2">Nom de la box</td>
-                                                <td class="px-4 py-2 text-center">
-                                                    <button type="button" data-clipboard-text="%box%">📋</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="border-b" data-variable="%tenant_id%">
-                                                <td class="px-4 py-2 status"></td>
-                                                <td class="px-4 py-2 font-medium">%tenant_id%</td>
-                                                <td class="px-4 py-2">Identifiant du locataire</td>
-                                                <td class="px-4 py-2 text-center">
-                                                    <button type="button" data-clipboard-text="%tenant_id%">📋</button>
-                                                </td>
-                                            </tr>
+                                            @foreach ($variables as $variable => $description)
+                                                <tr class="border-b" data-variable="{{ $variable }}">
+                                                    <td class="px-4 py-2 status"></td>
+                                                    <td class="px-4 py-2 font-medium">{{ $variable }}</td>
+                                                    <td class="px-4 py-2">{{ $description }}</td>
+                                                    <td class="px-4 py-2 text-center">
+                                                        <button type="button"
+                                                            data-clipboard-text="{{ $variable }}">📋</button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -122,10 +99,10 @@
             content.value = quill.root.innerHTML;
         });
 
-        // Fonction pour vérifier la présence des variables
+
         function checkVariablesInText() {
             const text = quill.root.innerHTML;
-            const variables = ["%date_start%", "%date_end%", "%monthly_price%", "%box%", "%tenant_id%"];
+            const variables = @json(array_keys($variables));
 
             variables.forEach(function(variable) {
                 const row = document.querySelector(`tr[data-variable="${variable}"]`);
@@ -140,20 +117,27 @@
             });
         }
 
-        // Vérifier les variables lorsque le contenu est modifié
+
         quill.on('text-change', function() {
             checkVariablesInText();
         });
 
-        // Vérifier les variables dès le chargement de la page
         document.addEventListener('DOMContentLoaded', checkVariablesInText);
 
-        // Ajouter la fonctionnalité de copie
         document.querySelectorAll('[data-clipboard-text]').forEach(button => {
             button.addEventListener('click', () => {
                 const variableText = button.getAttribute('data-clipboard-text');
                 navigator.clipboard.writeText(variableText);
             });
+        });
+
+        document.getElementById('toggleTable').addEventListener('click', function() {
+            const table = document.getElementById('variablesTable');
+            if (table.style.display === 'none') {
+                table.style.display = 'block';
+            } else {
+                table.style.display = 'none';
+            }
         });
     </script>
 </x-app-layout>

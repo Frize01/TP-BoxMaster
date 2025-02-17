@@ -23,6 +23,21 @@ class ModelContract extends Model
 
     protected $table = 'contract_models';
 
+    public static $availableVariable = [
+        '%date_start%' => 'Date de début du contrat',
+        '%date_end%' => 'Date de fin du contrat',
+        '%monthly_price%' => 'Montant mensuel du loyer',
+        '%box%' => 'Nom de la box',
+        '%tenant%' => 'Le locataire',
+        '%bailleur_nom%' => 'Nom du Bailleur',
+        '%bailleur_adresse%' => 'Adresse du Bailleur',
+        '%locataire_adresse%' => 'Adresse du Locataire',
+        '%depot_garantie%' => 'Dépôt de garantie',
+        '%delai_resiliation%' => 'Délai de résiliation',
+        '%lieu%' => 'Lieu de signature',
+        '%date_signature%' => 'Date de signature'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

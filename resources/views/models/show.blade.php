@@ -9,43 +9,39 @@
         </a>
     </x-slot>
 
+    {{-- Définition des variables --}}
+    @php
+        $variables = App\Models\ModelContract::$availableVariable;
+    @endphp
+
     <div class="py-6 pt-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col justify-around gap-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col lg::flex-row justify-around gap-4">
             <div id="editor" class="a4-sheet">
                 {!! $modelContract->content !!}
             </div>
 
             <div>
                 <div class="overflow-x-auto text-sm">
-                    <table id="variables-table"
-                        class="table-auto border-collapse border rounded-md border-gray-300 bg-white">
+                    <table id="variables-table" class="table-auto border-collapse border rounded-md border-gray-300 bg-white">
                         <thead>
                             <tr class="bg-gray-200">
                                 <th class="px-4 py-2 text-left">Statut</th>
                                 <th class="px-4 py-2 text-left">Variable</th>
+                                <th class="px-4 py-2 text-left">Description</th>
+                                <th class="px-4 py-2 text-left">Copier</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b" data-variable="%date_start%">
-                                <td class="px-4 py-2 status"></td>
-                                <td class="px-4 py-2 font-medium">%date_start%</td>
-                            </tr>
-                            <tr class="border-b" data-variable="%date_end%">
-                                <td class="px-4 py-2 status"></td>
-                                <td class="px-4 py-2 font-medium">%date_end%</td>
-                            </tr>
-                            <tr class="border-b" data-variable="%monthly_price%">
-                                <td class="px-4 py-2 status"></td>
-                                <td class="px-4 py-2 font-medium">%monthly_price%</td>
-                            </tr>
-                            <tr class="border-b" data-variable="%box%">
-                                <td class="px-4 py-2 status"></td>
-                                <td class="px-4 py-2 font-medium">%box%</td>
-                            </tr>
-                            <tr class="border-b" data-variable="%tenant_id%">
-                                <td class="px-4 py-2 status"></td>
-                                <td class="px-4 py-2 font-medium">%tenant_id%</td>
-                            </tr>
+                            @foreach ($variables as $variable => $description)
+                                <tr class="border-b" data-variable="{{ $variable }}">
+                                    <td class="px-4 py-2 status"></td>
+                                    <td class="px-4 py-2 font-medium">{{ $variable }}</td>
+                                    <td class="px-4 py-2">{{ $description }}</td>
+                                    <td class="px-4 py-2 text-center">
+                                        <button type="button" data-clipboard-text="{{ $variable }}">📋</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -64,7 +60,7 @@
 
         function checkVariablesInText() {
             const text = quill.root.innerHTML;
-            const variables = ["%date_start%", "%date_end%", "%monthly_price%", "%box%", "%tenant_id%"];
+            const variables = @json(array_keys($variables));
 
             variables.forEach(function(variable) {
                 const row = document.querySelector(`tr[data-variable="${variable}"]`);
@@ -79,8 +75,6 @@
             });
         }
 
-
-        // Vérifier les variables dès le chargement de la page
         document.addEventListener('DOMContentLoaded', checkVariablesInText);
     </script>
 </x-app-layout>
