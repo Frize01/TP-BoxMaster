@@ -15,14 +15,14 @@
     @endphp
 
     <div class="py-6 pt-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col lg::flex-row justify-around gap-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col lg:flex-row justify-around gap-2">
             <div id="editor" class="a4-sheet">
                 {!! $modelContract->content !!}
             </div>
 
             <div>
                 <div class="overflow-x-auto text-sm">
-                    <table id="variables-table" class="table-auto border-collapse border rounded-md border-gray-300 bg-white">
+                    <table id="variables-table" class="table-auto border-collapse border border-gray-300 bg-white">
                         <thead>
                             <tr class="bg-gray-200">
                                 <th class="px-4 py-2 text-left">Statut</th>

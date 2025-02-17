@@ -33,7 +33,6 @@ class TenantController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validateData($request);
-
         $tenant = new Tenant();
         $this->saveData($tenant, $data);
         return redirect()->route('tenant.index')->with('success', 'Tenant created successfully');
@@ -72,7 +71,8 @@ class TenantController extends Controller
     }
 
     private function validateData(Request $request): array
-    {
+    {   // TODO : demander à Kévin les form request
+        // TODO : design pattern repository
         return $request->validate([
             'name' => 'required|string',
             'tel' => 'required|string|max:13|min:10',
