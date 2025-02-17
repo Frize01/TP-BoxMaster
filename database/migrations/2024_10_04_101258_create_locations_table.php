@@ -15,11 +15,11 @@ return new class extends Migration
 
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('box_id')->constrained('boxs');
-            $table->foreignId('tenant_id')->constrained('tenants');
             $table->float('price');
             $table->datetime('date_start');
             $table->datetime('date_end');
+            $table->foreignId('box_id')->constrained('boxs');
+            $table->foreignId('tenant_id')->constrained('tenants');
         });
 
         Schema::enableForeignKeyConstraints();

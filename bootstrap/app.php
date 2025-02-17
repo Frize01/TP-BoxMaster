@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\OwnerBox;
+use App\Http\Middleware\OwnerModel;
 use App\Http\Middleware\OwnerTenant;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -16,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'ownerBox' => OwnerBox::class,
             'ownerTenant' => OwnerTenant::class,
+            'ownerModel' => OwnerModel::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
