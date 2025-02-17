@@ -85,6 +85,9 @@
             <x-responsive-nav-link :href="route('tenant.index')" :active="request()->routeIs('tenant.*')">
                 Gestion des locataires
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('modelContract.index')" :active="request()->routeIs('modelContract.*')">
+                Gestion des modèles
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

@@ -5,7 +5,7 @@
         </h2>
         <a href="{{ route('tenant.create') }}"
             class="text-blue-500 px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded-md hover:text-blue-700">
-            Ajouter un nouveau locataire
+            Ajouter
         </a>
     </x-slot>
 
