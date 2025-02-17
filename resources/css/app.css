@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.a4-sheet {
+    width: 100%;
+    height: auto;
+    max-width: 793px;
+    max-height: 1122px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 20px auto;
+}
+
+@media (min-width: 768px) {
+    .a4-sheet {
+        width: 793px;
+        height: 1122px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .a4-sheet {
+        width: 793px;
+        height: 1122px;
+        padding: 20px;
+    }
+}

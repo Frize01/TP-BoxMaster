@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoxController;
+use App\Http\Controllers\ModelContractController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/edit', [TenantController::class, 'edit'])->name('edit');
             Route::put('/update', [TenantController::class, 'update'])->name('update');
             Route::delete('/delete', [TenantController::class, 'destroy'])->name('destroy');
+        });
+    });
+
+    Route::prefix('/models')->name('modelContract.')->group(function () {
+        Route::get('/', [ModelContractController::class, 'index'])->name('index');
+        Route::get('/create', [ModelContractController::class, 'create'])->name('create');
+        Route::post('/store', [ModelContractController::class, 'store'])->name('store');
+
+        Route::prefix('/{modelContract}')->middleware('ownerModel')->group(function () {
+            Route::get('/show', [ModelContractController::class, 'show'])->name('show');
+            Route::get('/edit', [ModelContractController::class, 'edit'])->name('edit');
+            Route::put('/update', [ModelContractController::class, 'update'])->name('update');
+            Route::delete('/delete', [ModelContractController::class, 'destroy'])->name('destroy');
         });
     });
 });

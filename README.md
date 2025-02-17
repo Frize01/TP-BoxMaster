@@ -11,6 +11,7 @@
   - [Installation](#installation)
   - [Commande utiles](#commande-utiles)
   - [Contributeurs](#contributeurs)
+- [Demander à Kévin](#demander-à-kévin)
 ## Présentation
 
 Ce projet consiste à développer une application de gestion de locations de box de stockage pour les propriétaires, permettant la gestion des box, des locataires, des contrats, des paiements, des impôts et des factures. L'application doit inclure des fonctionnalités d'authentification, de gestion de modèles de contrats, de suivi des paiements et des impôts, ainsi que des exports de données et des envois de factures automatiques. Le projet doit être développé en utilisant Git et GitHub, avec des issues, des milestones et des branches. Les livrables finaux incluent le code source, un script de déploiement automatique et un URL d'accès au projet.
@@ -59,3 +60,8 @@ php artisan serve
 ## Contributeurs
 
 * Y'a que moi
+
+
+# Demander à Kévin
+
+* Explication des tests unitaires

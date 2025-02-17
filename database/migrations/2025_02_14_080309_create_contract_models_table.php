@@ -11,20 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('boxs', function (Blueprint $table) {
+        Schema::create('contract_models', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 64);
-            $table->string('address', 255);
-            $table->bigInteger('surface');
-            $table->bigInteger('volume');
-            $table->bigInteger('default_price');
-            $table->bigInteger('owner_id');
+            $table->string('name');
+            $table->longText('content');
+            $table->timestamps();
+            $table->bigInteger('owner_id')->unsigned();
             $table->foreign('owner_id')->references('id')->on('users');
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boxs');
+        Schema::dropIfExists('contract_models');
     }
 };

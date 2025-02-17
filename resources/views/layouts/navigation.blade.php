@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('tenant.index')" :active="request()->routeIs('tenant.*')">
                         Gestion des locataires
                     </x-nav-link>
+                    <x-nav-link :href="route('modelContract.index')" :active="request()->routeIs('modelContract.*')">
+                        Gestion des modèles
+                    </x-nav-link>
                 </div>
             </div>
 
