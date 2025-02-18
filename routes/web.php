@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoxController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ModelContractController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
@@ -55,6 +56,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/edit', [ModelContractController::class, 'edit'])->name('edit');
             Route::put('/update', [ModelContractController::class, 'update'])->name('update');
             Route::delete('/delete', [ModelContractController::class, 'destroy'])->name('destroy');
+        });
+    });
+
+    Route::prefix('/contracts')->name('contract.')->group(function () {
+        Route::get('/', [ContractController::class, 'index'])->name('index');
+        Route::get('/create', [ContractController::class, 'create'])->name('create');
+        Route::get('/create/{box}', [ContractController::class, 'create'])->middleware('ownerBox')->name('createWithBox');
+        Route::post('/store', [ContractController::class, 'store'])->name('store');
+
+        Route::prefix('/{contract}')->middleware('ownerContract')->group(function () {
+            Route::get('/show', [ContractController::class, 'show'])->name('show');
+            Route::get('/edit', [ContractController::class, 'edit'])->name('edit');
+            Route::put('/update', [ContractController::class, 'update'])->name('update');
+            Route::delete('/delete', [ContractController::class, 'destroy'])->name('destroy');
+            Route::get('/pdf', [ContractController::class, 'generatePdf'])->name('pdf');
         });
     });
 });

@@ -28,6 +28,13 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
+                <!-- Adress -->
+                <div class="mt-4">
+                    <x-input-label for="address" :value="__('Address')" />
+                    <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
+                    <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                </div>
+
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />

@@ -19,14 +19,27 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        if(app()->environment() == 'production') {
+            User::factory()->create([
+                'name' => 'User 1',
+                'email' => 'userOne@test.prod',
+                'password' => Hash::make('password'),
+            ]);
+            User::factory()->create([
+                'name' => 'Toto',
+                'email' => 'userTwo@test.prod',
+                'password' => Hash::make('password'),
+            ]);
+            exit('Seed production finished');
+        }
         User::factory()->create([
             'name' => 'Toto',
             'email' => 'user@test.local',
             'password' => Hash::make('testtt'),
         ]);
 
+        // Seed the tables in the correct order
         User::factory()->count(9)->create();
-
         Tenant::factory()->count(50)->create();
         Box::factory()->count(100)->create();
         ModelContract::factory()->count(50)->create();

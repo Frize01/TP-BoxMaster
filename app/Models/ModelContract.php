@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
+
+
 
 /**
  * Class ModelContract
@@ -32,7 +35,6 @@ class ModelContract extends Model
         '%bailleur_nom%' => 'Nom du Bailleur',
         '%bailleur_adresse%' => 'Adresse du Bailleur',
         '%locataire_adresse%' => 'Adresse du Locataire',
-        '%depot_garantie%' => 'Dépôt de garantie',
         '%delai_resiliation%' => 'Délai de résiliation',
         '%lieu%' => 'Lieu de signature',
         '%date_signature%' => 'Date de signature'
@@ -77,7 +79,39 @@ class ModelContract extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'model_contract_id');
+    }
+
+
+    public function generateContent(Contract $contract)
+    {
+        $sentence = $this->content;
+        $replacements = [
+            '%date_start%' => $contract->date_start->format('d/m/Y'),
+            '%date_end%' => $contract->date_end->format('d/m/Y'),
+            '%monthly_price%' => $contract->price,
+            '%box%' => $contract->box->name,
+            '%tenant%' => $contract->tenant->name,
+            '%bailleur_nom%' => Auth::user()->name,
+            '%bailleur_adresse%' => Auth::user()->address,
+            '%locataire_adresse%' => $contract->tenant->address,
+            '%delai_resiliation%' => $contract->resiliation_delay,
+            '%lieu%' => $contract->localisation ,
+            '%date_signature%' => now()->format('d/m/Y')
+        ];
+
+        $modified_sentence = preg_replace_callback('/%(\w+)%/', function ($matches) use ($replacements) {
+            $key = '%' . $matches[1] . '%';
+            return isset($replacements[$key]) ? $replacements[$key] : $matches[0];  // Retourner la valeur correspondante ou le placeholder original
+        }, $sentence);
+
+        return $modified_sentence;
+    }
+
 
 }
