@@ -2,7 +2,7 @@
 
 deploy: pull deploy-no-pull
 
-deploy-no-pull: down install up restart-queue
+deploy-no-pull: down install up
 
 pull:
 	git pull
@@ -30,13 +30,3 @@ public/build/manifest.json: package.json
 
 reset-git:
 	git reset --hard
-
-# Nouvelle tâche pour vérifier et redémarrer la queue en détaché avec un timeout
-restart-queue:
-	@if ps aux | grep 'php artisan queue:work' | grep -v grep > /dev/null; then \
-		echo "Queue est déjà en cours d'exécution, redémarrage..."; \
-		pkill -f 'php artisan queue:work' || true; \
-		sleep 2; \
-	fi; \
-	echo "Démarrage de la queue..."; \
-	timeout 30s php artisan queue:work &

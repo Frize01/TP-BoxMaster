@@ -9,10 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    @if ($bills->isEmpty())
+                        <p class="text-gray-500 text-center">Aucune facture trouvée</p>
+                    @else
                     <h3 class="text-xl font-bold pb-3 text-gray-900">
                         Factures
                     </h3>
-                    @if ($bills)
                         <p class="text-lg">{{ $bills->where('payment_date', '!=', null)->count() }} factures payé
                             soit <span
                                 class="text-green-500 font-bold">{{ $bills->where('payment_date', '!=', null)->sum('paiement_montant') }}€</span>
@@ -84,8 +86,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    @else
-                        Aucune factures
                     @endif
 
                 </div>
