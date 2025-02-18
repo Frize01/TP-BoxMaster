@@ -31,12 +31,12 @@ public/build/manifest.json: package.json
 reset-git:
 	git reset --hard
 
-# Nouvelle tâche pour vérifier et redémarrer la queue en détaché
+
 restart-queue:
 	@if ps aux | grep 'php artisan queue:work' | grep -v grep > /dev/null; then \
 		echo "Queue est déjà en cours d'exécution, redémarrage..."; \
-		pkill -f 'php artisan queue:work'; \
+		pkill -f 'php artisan queue:work' || true; \
 		sleep 2; \
 	fi; \
 	echo "Démarrage de la queue..."; \
-	php artisan queue:work &   # Démarrage en arrière-plan
+	php artisan queue:work & || true 
