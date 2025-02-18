@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
 use App\Models\Box;
 use App\Models\Contract;
 use App\Models\ModelContract;
@@ -18,7 +19,7 @@ class ContractController extends Controller
     public function index()
     {
         $boxs = Box::where('owner_id', auth()->id())->pluck('id')->toArray();
-        $contracts = Contract::whereIn('box_id', $boxs)->get();
+        $contracts = Contract::whereIn('box_id', $boxs)->with('tenant')->get();
         return view('contracts.index', ['contracts' => $contracts]);
     }
 
@@ -36,6 +37,7 @@ class ContractController extends Controller
                     'box_id' => $box->id ?? null,
                     'price' => $box->default_price ?? null,
                     'resiliation_delay' => '1 mois',
+                    'deposit' => $box->default_deposit ?? null
                 ]
             ),
             'box' => $box
@@ -58,7 +60,8 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
-        return view('contracts.show', ['contract' => $contract]);
+        $bills = Bill::where('contract_id', $contract->id)->get();
+        return view('contracts.show', ['contract' => $contract, 'bills' => $bills]);
     }
 
     /**
@@ -105,6 +108,7 @@ class ContractController extends Controller
             'resiliation_delay' => 'required|string',
             'localisation' => 'required|string',
             'model_contract_id' => 'required|integer|exists:contract_models,id',
+            'deposit' => 'required|integer',
         ]);
 
         $this->isAutorized($data);
@@ -135,6 +139,7 @@ class ContractController extends Controller
         $contract->model()->associate($data['model_contract_id']);
         $contract->date_start = $data['date_start'];
         $contract->date_end = $data['date_end'];
+        $contract->deposit = $data['deposit'];
         $contract->save();
     }
 
@@ -145,6 +150,6 @@ class ContractController extends Controller
             'content' => $content,
         ];
         $pdf = Pdf::loadView('pdf.contract', $data);
-        return $pdf->download('contract-' . Str::lower($contract->id) . '.pdf');
+        return $pdf->download('contract-' . $contract->id . '.pdf');
     }
 }

@@ -28,6 +28,7 @@ class ContractFactory extends Factory
             'date_start' => fake()->dateTimeBetween('-1 year', 'now'),
             'date_end' => fake()->dateTimeBetween('now', '+1 year'),
             'model_contract_id' => ModelContract::factory(),
+            'deposit' => fake()->numberBetween(100, 1000),
         ];
     }
 }

@@ -64,6 +64,7 @@ class BoxController extends Controller
             'surface' => 'required|integer|min:0',
             'volume' => 'nullable|integer|min:0',
             'default_price' => 'required|numeric|min:1',
+            'default_deposit' => 'required|integer|min:0',
         ]);
 
         return $data;
@@ -75,6 +76,7 @@ class BoxController extends Controller
         $box->address = $data['address'];
         $box->surface = $data['surface'];
         $box->volume = $data['volume'];
+        $box->default_deposit = $data['default_deposit'];
         $box->default_price = $data['default_price'];
         $box->owner()->associate(Auth::user());
         $box->save();

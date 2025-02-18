@@ -23,6 +23,7 @@ class BoxFactory extends Factory
             'surface' => fake()->numberBetween(1, 100),
             'volume' => fake()->numberBetween(1, 1000),
             'default_price' => fake()->numberBetween(1, 1000),
+            'default_deposit' => fake()->numberBetween(1, 1000),
         ];
     }
 
