@@ -31,7 +31,7 @@ public/build/manifest.json: package.json
 reset-git:
 	git reset --hard
 
-
+# Nouvelle tâche pour vérifier et redémarrer la queue en détaché avec un timeout
 restart-queue:
 	@if ps aux | grep 'php artisan queue:work' | grep -v grep > /dev/null; then \
 		echo "Queue est déjà en cours d'exécution, redémarrage..."; \
@@ -39,4 +39,4 @@ restart-queue:
 		sleep 2; \
 	fi; \
 	echo "Démarrage de la queue..."; \
-	php artisan queue:work & || true 
+	timeout 30s php artisan queue:work &
