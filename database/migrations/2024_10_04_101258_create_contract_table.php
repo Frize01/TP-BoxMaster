@@ -20,6 +20,7 @@ return new class extends Migration
             $table->datetime('date_end');
             $table->string('resiliation_delay');
             $table->string('localisation');
+            $table->integer('deposit');
             $table->foreignId('box_id')->constrained('boxs');
             $table->foreignId('tenant_id')->constrained('tenants');
             $table->foreignId('model_contract_id')->constrained('contract_models');

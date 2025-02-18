@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModelContractController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
@@ -11,14 +13,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'view'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('/bills')->name('bill.')->group(function () {
+        Route::get('/generate', [BillController::class, 'generateBills'])->name('generate');
+        Route::prefix('/{bill}/')->group(function () {
+            Route::post('/pay', [BillController::class, 'pay'])->name('pay');
+            Route::get('/download', [BillController::class, 'generatePdf'])->name('download');
+        });
+    });
 
     Route::prefix('/boxs')->name('box.')->group(function () {
         Route::get('/', [BoxController::class, 'index'])->name('index');
@@ -70,9 +77,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/edit', [ContractController::class, 'edit'])->name('edit');
             Route::put('/update', [ContractController::class, 'update'])->name('update');
             Route::delete('/delete', [ContractController::class, 'destroy'])->name('destroy');
-            Route::get('/pdf', [ContractController::class, 'generatePdf'])->name('pdf');
+            Route::get('/download', [ContractController::class, 'generatePdf'])->name('pdf');
         });
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

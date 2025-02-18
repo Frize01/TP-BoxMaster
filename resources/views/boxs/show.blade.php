@@ -39,6 +39,9 @@
                     <p>
                         <span class="font-bold">Prix :</span> {{ $box->default_price }}€/mois
                     </p>
+                    <p>
+                        <span class="font-bold">Dépôt de garantie :</span> {{ $box->default_deposit }}€
+                    </p>
                 </div>
             </div>
         </div>
@@ -91,7 +94,7 @@
                                         </th>
                                         <th class="p-4 border-b border-slate-300 bg-slate-50">
                                             <p class="block text-sm font-normal leading-none text-slate-500">
-                                                Afficher
+                                                Facturation
                                             </p>
                                         </th>
                                         <th class="p-4 border-b border-slate-300 bg-slate-50">
@@ -145,7 +148,7 @@
                                             <td class="p-4 border-b border-slate-200">
                                                 <a href="{{ route('contract.show', $contract->id) }}"
                                                     class="text-blue-500 px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded-md hover:text-blue-700">
-                                                    Voir
+                                                    Afficher
                                                 </a>
                                             </td>
                                             <td class="p-4 border-b border-slate-200">

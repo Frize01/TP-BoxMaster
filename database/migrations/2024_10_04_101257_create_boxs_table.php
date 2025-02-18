@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('surface');
             $table->bigInteger('volume');
             $table->bigInteger('default_price');
+            $table->integer('default_deposit');
             $table->bigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users');
         });

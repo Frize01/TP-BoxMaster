@@ -17,6 +17,7 @@ use App\Models\User;
  * @property string $name
  * @property string $content
  * @property User $owner_id
+ * @property int $default_deposit
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  */
@@ -31,7 +32,9 @@ class ModelContract extends Model
         '%date_end%' => 'Date de fin du contrat',
         '%monthly_price%' => 'Montant mensuel du loyer',
         '%box%' => 'Nom de la box',
+        '%depot_garantie' => 'Montant du dépôt de garantie',
         '%tenant%' => 'Le locataire',
+        '%adresse_box%' => 'Adresse de la box',
         '%bailleur_nom%' => 'Nom du Bailleur',
         '%bailleur_adresse%' => 'Adresse du Bailleur',
         '%locataire_adresse%' => 'Adresse du Locataire',
@@ -94,8 +97,10 @@ class ModelContract extends Model
         $replacements = [
             '%date_start%' => $contract->date_start->format('d/m/Y'),
             '%date_end%' => $contract->date_end->format('d/m/Y'),
-            '%monthly_price%' => $contract->price,
+            '%monthly_price%' => $contract->price.'€',
             '%box%' => $contract->box->name,
+            '%adresse_box%' => $contract->box->address,
+            '%depot_garantie%' => $contract->deposit.'€',
             '%tenant%' => $contract->tenant->name,
             '%bailleur_nom%' => Auth::user()->name,
             '%bailleur_adresse%' => Auth::user()->address,
@@ -112,6 +117,4 @@ class ModelContract extends Model
 
         return $modified_sentence;
     }
-
-
 }

@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('modelContract.index')" :active="request()->routeIs('modelContract.*')">
                         Modèles
                     </x-nav-link>
+                    <x-nav-link :href="route('contract.index')" :active="request()->routeIs('contract.*')">
+                        Contrats
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -87,6 +90,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('modelContract.index')" :active="request()->routeIs('modelContract.*')">
                 Gestion des modèles
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contract.index')" :active="request()->routeIs('contract.*')">
+                Gestion des contrats
             </x-responsive-nav-link>
         </div>
 

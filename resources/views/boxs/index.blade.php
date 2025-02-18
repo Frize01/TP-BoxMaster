@@ -3,10 +3,13 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Gestion des boxs
         </h2>
-        <a href="{{ route('box.create') }}"
-            class="text-blue-500 px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded-md hover:text-blue-700">
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="{{ route('bill.generate') }}" class="text-purple-500 px-2 py-1 bg-purple-100 hover:bg-purple-200 rounded-md hover:text-purple-700">Générer les factures</a>
+            <a href="{{ route('box.create') }}"
+            class="text-blue-500 px-2 py-1 bg-blue-100 hover:bg-blue-200 rounded-md hover:text-blue-700 text-center">
             Créer une box
         </a>
+    </div>
     </x-slot>
 
     <div class="py-12">
@@ -46,7 +49,8 @@
                                 <tr class="hover:bg-slate-50">
                                     <td class="p-4 border-b border-slate-200">
                                         @if ($box->is_available)
-                                            <span class="text-green-500 px-2 py-1 bg-green-100 rounded-md">Disponible</span>
+                                            <span
+                                                class="text-green-500 px-2 py-1 bg-green-100 rounded-md">Disponible</span>
                                         @else
                                             <span class="text-red-500 px-2 py-1 bg-red-100 rounded-md">Occupé</span>
                                         @endif

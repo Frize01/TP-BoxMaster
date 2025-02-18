@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Contract
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property float $price
  * @property string $resiliation_delay
  * @property string $localisation
+ * @property int $deposit
+ * @property Bill $bills
  * @property ModelContract $model_contract_id
  * @property \Illuminate\Support\Carbon $date_start
  * @property \Illuminate\Support\Carbon $date_end
@@ -42,6 +45,7 @@ class Contract extends Model
         'localisation',
         'date_start',
         'date_end',
+        'deposit'
     ];
 
     /**
@@ -80,6 +84,11 @@ class Contract extends Model
     public function model(): BelongsTo
     {
         return $this->belongsTo(ModelContract::class, 'model_contract_id', 'id');
+    }
+
+    public function bills(): HasMany
+    {
+        return $this->hasMany(Bill::class);
     }
 
     public function status(): Attribute

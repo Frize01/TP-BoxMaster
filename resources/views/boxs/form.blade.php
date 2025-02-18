@@ -48,6 +48,13 @@
                         </div>
 
                         <div>
+                            <x-input-label for="default_deposit" value="Dépôt de garantie" />
+                            <x-text-input id="default_deposit" name="default_deposit" type="number" class="mt-1 block w-full"
+                                :value="old('default_deposit', $box->default_deposit)" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('default_deposit')" />
+                        </div>
+
+                        <div>
                             <x-input-label for="surface" value="Surface" />
                             <x-text-input id="surface" name="surface" type="number" class="mt-1 block w-full"
                                 :value="old('surface', $box->surface)" required />

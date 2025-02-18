@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $owner_id
  * @property string $name
  * @property int $surface
+ * @property int $default_deposit
  * @property string $address
  * @property int|null $volume
  * @property int $default_price

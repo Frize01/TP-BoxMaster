@@ -11,6 +11,7 @@ install: vendor/autoload.php public/storage public/build/manifest.json
 	php artisan cache:clear
 	php artisan migrate --force --no-interaction
 	npm run build
+	php artisan queue:work
 
 down:
 	php artisan down

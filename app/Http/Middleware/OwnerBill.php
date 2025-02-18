@@ -2,13 +2,14 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Bill;
 use App\Models\Box;
 use App\Models\Contract;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
-class OwnerContract
+class OwnerBill
 {
     /**
      * Handle an incoming request.
@@ -18,7 +19,12 @@ class OwnerContract
     public function handle(Request $request, Closure $next)
     {
         $boxs = Box::where('owner_id', auth()->id())->pluck('id')->toArray();
-        if(!Contract::whereIn('box_id', $boxs)->where('id', $request->contract->id)->exists()){
+        $contract = Contract::whereIn('box_id', $boxs)->where('id', $request->contract->id);
+        if(!$contract->exist()){
+            return abort(403);
+        }
+
+        if(!Bill::whereIn('contract_id', $contract->pluck('id')->toArray())->where('id', $request->bill->id)->exists()){
             return abort(403);
         }
 
