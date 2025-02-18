@@ -16,13 +16,13 @@
                         Accueil
                     </x-nav-link>
                     <x-nav-link :href="route('box.index')" :active="request()->routeIs('box.*')">
-                        Gestion des boxs
+                        Boxs
                     </x-nav-link>
                     <x-nav-link :href="route('tenant.index')" :active="request()->routeIs('tenant.*')">
-                        Gestion des locataires
+                        Locataires
                     </x-nav-link>
                     <x-nav-link :href="route('modelContract.index')" :active="request()->routeIs('modelContract.*')">
-                        Gestion des modèles
+                        Modèles
                     </x-nav-link>
                 </div>
             </div>

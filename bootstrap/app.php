@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\OwnerBox;
+use App\Http\Middleware\OwnerContract;
 use App\Http\Middleware\OwnerModel;
 use App\Http\Middleware\OwnerTenant;
 use Illuminate\Foundation\Application;
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'ownerBox' => OwnerBox::class,
             'ownerTenant' => OwnerTenant::class,
             'ownerModel' => OwnerModel::class,
+            'ownerContract' => OwnerContract::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

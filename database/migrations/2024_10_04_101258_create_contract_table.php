@@ -18,8 +18,11 @@ return new class extends Migration
             $table->float('price');
             $table->datetime('date_start');
             $table->datetime('date_end');
+            $table->string('resiliation_delay');
+            $table->string('localisation');
             $table->foreignId('box_id')->constrained('boxs');
             $table->foreignId('tenant_id')->constrained('tenants');
+            $table->foreignId('model_contract_id')->constrained('contract_models');
         });
 
         Schema::enableForeignKeyConstraints();

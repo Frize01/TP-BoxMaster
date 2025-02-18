@@ -11,9 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class Contract
  *
  * @property int $id
- * @property int $box_id
- * @property int $tenant_id
+ * @property Box $box_id
+ * @property Tenant $tenant_id
  * @property float $price
+ * @property string $resiliation_delay
+ * @property string $localisation
+ * @property ModelContract $model_contract_id
  * @property \Illuminate\Support\Carbon $date_start
  * @property \Illuminate\Support\Carbon $date_end
  */
@@ -35,6 +38,8 @@ class Contract extends Model
         'box_id',
         'tenant_id',
         'price',
+        'resiliation_delay',
+        'localisation',
         'date_start',
         'date_end',
     ];
@@ -70,6 +75,11 @@ class Contract extends Model
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class, 'tenant_id', 'id');
+    }
+
+    public function model(): BelongsTo
+    {
+        return $this->belongsTo(ModelContract::class, 'model_contract_id', 'id');
     }
 
     public function status(): Attribute

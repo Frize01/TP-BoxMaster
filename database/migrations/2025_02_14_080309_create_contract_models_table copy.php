@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('contract_models', function (Blueprint $table) {
             $table->id();
-            $table->integer('paiement_montant');
-            $table->datetime('payment_date');
-            $table->integer('period_number');
+            $table->string('name');
+            $table->longText('content');
             $table->timestamps();
-            $table->foreignId('contract_id')->constrained('contracts');
+            $table->bigInteger('owner_id')->unsigned();
+            $table->foreign('owner_id')->references('id')->on('users');
         });
     }
 
