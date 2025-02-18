@@ -112,7 +112,7 @@ class ModelContract extends Model
 
         $modified_sentence = preg_replace_callback('/%(\w+)%/', function ($matches) use ($replacements) {
             $key = '%' . $matches[1] . '%';
-            return isset($replacements[$key]) ? $replacements[$key] : $matches[0];  // Retourner la valeur correspondante ou le placeholder original
+            return isset($replacements[$key]) ? $replacements[$key] : $matches[0];
         }, $sentence);
 
         return $modified_sentence;
