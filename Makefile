@@ -1,8 +1,8 @@
-.PHONY: deploy deploy-no-pull install pull
+.PHONY: deploy deploy-no-pull install pull restart-queue
 
 deploy: pull deploy-no-pull
 
-deploy-no-pull: down install up
+deploy-no-pull: down install up restart-queue
 
 pull:
 	git pull
@@ -11,7 +11,6 @@ install: vendor/autoload.php public/storage public/build/manifest.json
 	php artisan cache:clear
 	php artisan migrate --force --no-interaction
 	npm run build
-	php artisan queue:work
 
 down:
 	php artisan down
@@ -31,3 +30,13 @@ public/build/manifest.json: package.json
 
 reset-git:
 	git reset --hard
+
+# Nouvelle tâche pour vérifier et redémarrer la queue en détaché
+restart-queue:
+	@if ps aux | grep 'php artisan queue:work' | grep -v grep > /dev/null; then \
+		echo "Queue est déjà en cours d'exécution, redémarrage..."; \
+		pkill -f 'php artisan queue:work'; \
+		sleep 2; \
+	fi; \
+	echo "Démarrage de la queue..."; \
+	php artisan queue:work &   # Démarrage en arrière-plan
