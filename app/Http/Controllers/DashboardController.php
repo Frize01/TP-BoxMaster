@@ -9,11 +9,18 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function view() {
+    public function view()
+    {
         $boxs = Box::where('owner_id', auth()->id())->pluck('id')->toArray();
         $contract = Contract::whereIn('box_id', $boxs)->pluck('id')->toArray();
 
         $bills = Bill::whereIn('contract_id', $contract)->get();
-        return view('dashboard', ['bills' => $bills]);
+
+        $currentYear = now()->year;
+
+        $billByYear = Bill::whereYear('payment_date', $currentYear)
+            ->whereNotNull('payment_date')
+            ->sum('paiement_montant');
+        return view('dashboard', ['bills' => $bills, 'billByYear' => $billByYear, 'currentYear' => $currentYear]);
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImpotsController;
 use App\Http\Controllers\ModelContractController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/download', [BillController::class, 'generatePdf'])->name('download');
         });
     });
+    Route::get('/impots', [ImpotsController::class, 'index'])->name('impots.index');
 
     Route::prefix('/boxs')->name('box.')->group(function () {
         Route::get('/', [BoxController::class, 'index'])->name('index');

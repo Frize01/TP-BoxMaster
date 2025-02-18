@@ -5,21 +5,68 @@
         </h2>
     </x-slot>
 
-    <div class="py-6 pt-12">
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    @if ($billByYear <= 0)
+                        <p class="text-gray-500 text-center">Aucun revenu trouvé pour cette année</p>
+                    @else
+                    <h3 class="text-xl font-bold pb-3 text-gray-900">
+                        Calcul des impôts pour l'année {{ $currentYear }}
+                    </h3>
+    
+                    <p class="text-lg mt-4">
+                        Total des revenus pour l'année {{ $currentYear }} :
+                        <span class="font-bold">{{ number_format($billByYear, 2) }} €</span>
+                    </p>
+    
+                    @if ($billByYear <= 15000)
+                        <div class="mt-6">
+                            <h4 class="text-xl">Régime Micro-Foncier</h4>
+                            <p class="mt-2">Montant total à déclarer (case 4 BE déclaration n°2042) :
+                                <span>{{ number_format($billByYear, 2) }} €</span>
+                            </p>
+                            <p class="mt-2">Montant imposable (après abattement de 30%) :
+                                <span>{{ number_format($billByYear * 0.7, 2) }} €</span>
+                            </p>
+                        </div>
+                    @else
+                        <div class="mt-6">
+                            <h4 class="text-xl">Régime Réel</h4>
+                            <p class="mt-2">Montant total à déclarer (case 4 BA déclaration n°2044) :
+                                <span>{{ number_format($billByYear, 2) }} €</span>
+                            </p>
+                            <p class="mt-2">Montant imposable (100% des revenus) :
+                                <span>{{ number_format($billByYear, 2) }} €</span>
+                            </p>
+                        </div>
+                    @endif
+                    @endif
+
+                    <div class="flex justify-end py-2">
+                        <a href="{{ route('impots.index') }}"
+                            class="text-gray-500 px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-md hover:text-gray-700 text-center">
+                            Consulter toutes les années
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if ($bills->isEmpty())
                         <p class="text-gray-500 text-center">Aucune facture trouvée</p>
                     @else
-                    <h3 class="text-xl font-bold pb-3 text-gray-900">
-                        Factures
-                    </h3>
-                        <p class="text-lg">{{ $bills->where('payment_date', '!=', null)->count() }} factures payé
-                            soit <span
-                                class="text-green-500 font-bold">{{ $bills->where('payment_date', '!=', null)->sum('paiement_montant') }}€</span>
-                        </p>
-                        <p class="text-lg mt-4">{{ $bills->where('payment_date', null)->count() }} factures en attente de
+                        <h3 class="text-xl font-bold pb-3 text-gray-900">
+                            Factures impayées
+                        </h3>
+                        <p class="text-lg mt-4">{{ $bills->where('payment_date', null)->count() }} factures en attente
+                            de
                             paiement
                             soit <span
                                 class="text-red-500 font-bold">{{ $bills->where('payment_date', null)->sum('paiement_montant') }}€</span>
