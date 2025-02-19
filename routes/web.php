@@ -22,6 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::prefix('/bills')->name('bill.')->group(function () {
         Route::get('/generate', [BillController::class, 'generateBills'])->name('generate');
+        Route::get('/export-payments', [DashboardController::class, 'exportPayments'])->name('export');
         Route::prefix('/{bill}/')->group(function () {
             Route::post('/pay', [BillController::class, 'pay'])->name('pay');
             Route::get('/download', [BillController::class, 'generatePdf'])->name('download');

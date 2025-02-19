@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\Box;
 use App\Models\Contract;
-use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PaymentsExport;
 
 class DashboardController extends Controller
 {
@@ -22,5 +23,10 @@ class DashboardController extends Controller
             ->whereNotNull('payment_date')
             ->sum('paiement_montant');
         return view('dashboard', ['bills' => $bills, 'billByYear' => $billByYear, 'currentYear' => $currentYear]);
+    }
+
+    public function exportPayments()
+    {
+        return Excel::download(new PaymentsExport, 'paiements.xlsx');
     }
 }
