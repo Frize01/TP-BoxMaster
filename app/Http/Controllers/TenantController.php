@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Exports\TenantExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TenantController extends Controller
 {
@@ -91,5 +93,10 @@ class TenantController extends Controller
         $tenant->rib = $data['rib'];
         $tenant->owner()->associate(Auth::user());
         $tenant->save();
+    }
+
+    public function export()
+    {
+        return Excel::download(new TenantExport(auth()->id()), 'tenants.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 }

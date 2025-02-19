@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [TenantController::class, 'index'])->name('index');
         Route::get('/create', [TenantController::class, 'create'])->name('create');
         Route::post('/store', [TenantController::class, 'store'])->name('store');
+        Route::get('/export', [TenantController::class, 'export'])->name('export');
 
         Route::prefix('/{tenant}')->middleware('ownerTenant')->group(function () {
             Route::get('/show', [TenantController::class, 'show'])->name('show');

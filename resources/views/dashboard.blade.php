@@ -9,39 +9,38 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <h3 class="text-xl font-bold pb-3 text-gray-900">Calcul des impôts pour l'année {{ $currentYear }}
+                    </h3>
+
                     @if ($billByYear <= 0)
                         <p class="text-gray-500 text-center">Aucun revenu trouvé pour cette année</p>
                     @else
-                    <h3 class="text-xl font-bold pb-3 text-gray-900">
-                        Calcul des impôts pour l'année {{ $currentYear }}
-                    </h3>
-    
-                    <p class="text-lg mt-4">
-                        Total des revenus pour l'année {{ $currentYear }} :
-                        <span class="font-bold">{{ number_format($billByYear, 2) }} €</span>
-                    </p>
-    
-                    @if ($billByYear <= 15000)
-                        <div class="mt-6">
-                            <h4 class="text-xl">Régime Micro-Foncier</h4>
-                            <p class="mt-2">Montant total à déclarer (case 4 BE déclaration n°2042) :
-                                <span>{{ number_format($billByYear, 2) }} €</span>
-                            </p>
-                            <p class="mt-2">Montant imposable (après abattement de 30%) :
-                                <span>{{ number_format($billByYear * 0.7, 2) }} €</span>
-                            </p>
-                        </div>
-                    @else
-                        <div class="mt-6">
-                            <h4 class="text-xl">Régime Réel</h4>
-                            <p class="mt-2">Montant total à déclarer (case 4 BA déclaration n°2044) :
-                                <span>{{ number_format($billByYear, 2) }} €</span>
-                            </p>
-                            <p class="mt-2">Montant imposable (100% des revenus) :
-                                <span>{{ number_format($billByYear, 2) }} €</span>
-                            </p>
-                        </div>
-                    @endif
+                        <p class="text-lg mt-4">
+                            Total des revenus pour l'année {{ $currentYear }} :
+                            <span class="font-bold">{{ number_format($billByYear, 2) }} €</span>
+                        </p>
+
+                        @if ($billByYear <= 15000)
+                            <div class="mt-6">
+                                <h4 class="text-xl">Régime Micro-Foncier</h4>
+                                <p class="mt-2">Montant total à déclarer (case 4 BE déclaration n°2042) :
+                                    <span>{{ number_format($billByYear, 2) }} €</span>
+                                </p>
+                                <p class="mt-2">Montant imposable (après abattement de 30%) :
+                                    <span>{{ number_format($billByYear * 0.7, 2) }} €</span>
+                                </p>
+                            </div>
+                        @else
+                            <div class="mt-6">
+                                <h4 class="text-xl">Régime Réel</h4>
+                                <p class="mt-2">Montant total à déclarer (case 4 BA déclaration n°2044) :
+                                    <span>{{ number_format($billByYear, 2) }} €</span>
+                                </p>
+                                <p class="mt-2">Montant imposable (100% des revenus) :
+                                    <span>{{ number_format($billByYear, 2) }} €</span>
+                                </p>
+                            </div>
+                        @endif
                     @endif
 
                     <div class="flex justify-end py-2">
@@ -61,7 +60,8 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h2 class="text-xl font-bold pb-3 text-gray-900">Effectuer un export des différents paiements</h2>
-                    <a href="{{ route('bill.export') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                    <a href="{{ route('bill.export') }}"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                         📤 Exporter en Excel
                     </a>
                 </div>

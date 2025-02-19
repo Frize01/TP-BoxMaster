@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\Box;
 use App\Models\Contract;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Jobs\GenerationFacture;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 
@@ -14,10 +16,27 @@ class BillController extends Controller
 {
     public function generateBills()
     {
+        $boxs = Box::where('owner_id', auth()->id())->pluck('id')->toArray();
+        $currentPeriod = Carbon::now()->format('m-Y');
 
-        GenerationFacture::dispatch(auth()->id());
+        $contracts = Contract::whereIn('box_id', $boxs)
+            ->whereDoesntHave('bills', function ($query) use ($currentPeriod) {
+                $query->where('period_number', $currentPeriod);
+            })
+            ->get();
 
-        return redirect()->back()->with('success', 'la générartion des factures a été lancée');
+        foreach ($contracts as $contract) {
+            Bill::create([
+                'contract_id' => $contract->id,
+                'paiement_montant' => $contract->price,
+                'payment_date' => null,
+                'period_number' => $currentPeriod,
+            ]);
+        }
+
+        // GenerationFacture::dispatch(auth()->id());
+
+        return redirect()->back()->with('success', 'La générartion des factures a été lancée');
     }
 
     public function pay(Request $request, Bill $bill){
