@@ -22,7 +22,7 @@ public/storage:
 	php artisan storage:link
 
 vendor/autoload.php: composer.lock
-	composer install --no-interaction --optimize-autoloader --no-dev
+	composer install --no-interaction --optimize-autoloader --no-dev --ignore-platform-req=ext-gd
 	touch vendor/autoload.php
 
 public/build/manifest.json: package.json
