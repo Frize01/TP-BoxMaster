@@ -19,7 +19,7 @@ class BoxFactory extends Factory
         return [
             'owner_id' => fake()->numberBetween(1, 2),
             'address' => fake()->address(),
-            'name' => fake()->word(),
+            'name' => fake()->name(),
             'surface' => fake()->numberBetween(1, 100),
             'volume' => fake()->numberBetween(1, 1000),
             'default_price' => fake()->numberBetween(1, 1000),

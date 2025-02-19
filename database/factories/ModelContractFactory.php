@@ -18,7 +18,7 @@ class ModelContractFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'content' => $this->faker->text,
+            'content' => "Content de qualité",
             'owner_id' => $this->faker->numberBetween(1,10),
         ];
     }

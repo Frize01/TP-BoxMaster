@@ -19,17 +19,36 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        if(app()->environment() == 'production') {
+        if (app()->environment() == 'production') {
             User::factory()->create([
                 'name' => 'User 1',
-                'email' => 'userOne@test.prod',
+                'email' => 'user.one@test.prod',
                 'password' => Hash::make('password'),
             ]);
+
             User::factory()->create([
                 'name' => 'Toto',
-                'email' => 'userTwo@test.prod',
+                'email' => 'userT.two@test.prod',
                 'password' => Hash::make('password'),
             ]);
+
+            Box::factory()->count(20)->create(['owner_id' => 1]);
+            Tenant::factory()->count(20)->create(['owner_id' => 1]);
+
+            ModelContract::factory()->count(2)->create([
+                'owner_id' => 1,
+                'content' => "Content"
+            ]);
+
+            foreach (range(1, 20) as $i) {
+                Contract::factory()->create([
+                    'box_id' => $i,
+                    'tenant_id' => $i,
+                    'model_contract_id' => fake()->numberBetween(1,2),
+                ]);
+            }
+
+
             exit('Seed production finished');
         }
         User::factory()->create([
