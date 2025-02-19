@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    @foreach ($billByYear as $year => $totalRevenus)
+    @forelse ($billByYear as $year => $totalRevenus)
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        @forelse
+    @empty
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -54,6 +54,5 @@
                 </div>
             </div>
         </div>
-    @endforeach
-
+    @endforelse
 </x-app-layout>
