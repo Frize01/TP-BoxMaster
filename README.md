@@ -16,7 +16,7 @@
 
 Ce projet consiste à développer une application de gestion de locations de box de stockage pour les propriétaires, permettant la gestion des box, des locataires, des contrats, des paiements, des impôts et des factures. L'application doit inclure des fonctionnalités d'authentification, de gestion de modèles de contrats, de suivi des paiements et des impôts, ainsi que des exports de données et des envois de factures automatiques. Le projet doit être développé en utilisant Git et GitHub, avec des issues, des milestones et des branches. Les livrables finaux incluent le code source, un script de déploiement automatique et un URL d'accès au projet.
 
-* Prod [C'est ici ?](http://kevin.voisine.angers.mds-project.fr/)
+* Prod [C'est ici ?](http://kevin.voisine.angers.mds-project.fr)
 
 - User 1
 * 'email' => user.one@test.prod
@@ -30,7 +30,7 @@ Ce projet consiste à développer une application de gestion de locations de box
 ## MCD
 
 ![Image du MCD](mcd.png)
-
+$$
 ## Fonctionnalités
 
 * En attente d'informations
