@@ -19,11 +19,11 @@ Ce projet consiste à développer une application de gestion de locations de box
 * Prod [C'est ici ?](http://kevin.voisine.angers.mds-project.fr/)
 
 - User 1
-* 'email' => userOne@test.prod
+* 'email' => user.one@test.prod
 * 'password' => password
 
 - User 2
-* 'email' => userTwo@test.prod
+* 'email' => user.two@test.prod
 * 'password' => password
 
 
