@@ -27,7 +27,7 @@
             <div
                 class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
                 @if ($tenants->isEmpty())
-                    <p class="text-gray-500 text-center p-6">Aucune locataire trouvé</p>
+                    <p class="text-gray-500 text-center p-6">Aucun locataire trouvé</p>
                 @else
                     <table class="w-full min-w-7xl text-left table-auto">
                         <thead>
